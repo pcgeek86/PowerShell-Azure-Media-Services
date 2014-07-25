@@ -10,7 +10,6 @@ $PublicFunction = @(
     'New-AzureMediaServicesAsset';
     'Get-AzureMediaServicesProcessor';
     'Add-AzureMediaServicesAssetFile';
-    'Get-AzureMediaServicesProcessor';
     );
 Export-ModuleMember -Function $PublicFunction;
 

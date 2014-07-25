@@ -9,12 +9,14 @@ Functions
 There are several functions available in this module:
 
 * Get-AzureMediaServicesContext
-* 
+* New-AzureMediaServicesAsset
 * Add-AzureMediaServicesAssetFile
-* 
+* Get-AzureMediaServicesProcessor
 
 Process Flow for Azure Media Services
 ======================================
+
+To get started using Azure Media Services, follow these steps:
 
 1. Select the appropriate Azure subscription
 2. Create an Azure Affinity Group
