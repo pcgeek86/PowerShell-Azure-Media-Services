@@ -14,4 +14,4 @@ $PublicFunction = @(
     );
 Export-ModuleMember -Function $PublicFunction;
 
-Load-AzureMediaDependencies;
+Load-AzureMediaServicesDependencies;
