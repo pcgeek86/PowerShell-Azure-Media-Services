@@ -79,7 +79,3 @@
         return $CloudMediaContext;
     }
 }
-
-if ($MyInvocation.MyCommand.Module) {
-    Export-ModuleMember -Function Get-AzureMediaContext;
-}

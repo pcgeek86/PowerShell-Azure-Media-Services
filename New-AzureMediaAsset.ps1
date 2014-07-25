@@ -44,7 +44,3 @@
     # Return the new Asset object
     return $NewAsset;
 }
-
-if ($MyInvocation.MyCommand.Module) {
-    Export-ModuleMember -Function New-AzureMediaAsset;
-}
