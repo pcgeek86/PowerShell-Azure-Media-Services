@@ -3,6 +3,16 @@
     .Synopsis
     Creates a new Azure Media Context, with the given ACS token or account details.
 
+    .Parameter TokenPath
+    The path to the JSON file that contains the serialized Access Control Services (ACS) token. If
+    you do not already have an ACS token, then you can create one by using the 'NewToken' parameter set.
+
+    .Parameter FromToken
+    Loads an ACS token from a file, instead of creating a new one. Only use this parameter along with the
+    TokenPath parameter, if you have already created an ACS token and exported it to a file. By default,
+    this command will export a new ACS token to a file, unless you suppress it with the -NoExport parameter.
+
+    .Parameter
     #>
     [CmdletBinding()]
     param (
