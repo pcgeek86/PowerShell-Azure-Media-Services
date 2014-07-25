@@ -1,8 +1,9 @@
-﻿function Load-AzureMediaServicesDependencies {
+﻿function Load-AzureMediaDependencies {
     [CmdletBinding()]
     param ()
 
-    Invoke-WebRequest -Uri http://nuget.org/nuget.exe -OutFile $PSScriptRoot\nuget.exe;
+    $NuGet = '{0}\nuget.exe' -f $PSScriptRoot;
+    Invoke-WebRequest -Uri http://nuget.org/nuget.exe -OutFile $NuGet;
 
     # Install dependencies from NuGet, to work with Azure Media Services
     #Set-Location -Path $PSScriptRoot;
@@ -15,7 +16,7 @@
     $NuGetOutput = '{0}\Library' -f $PSScriptRoot;
     foreach ($NuGetPackage in $NuGetPackageList) {
         Write-Verbose -Message ('Installing NuGet package: {0} {1}' -f $NuGetPackage.Name, $NuGetPackage.Version);
-        [void](nuget install $NuGetPackage.Name -Version $NuGetPackage.Version -OutputDirectory $NuGetOutput);
+        [void](& $NuGet install $NuGetPackage.Name -Version $NuGetPackage.Version -OutputDirectory $NuGetOutput);
     }
 
     #region This is the old way of installing dependencies, with multiple calls to nuget.exe (duplicate code)

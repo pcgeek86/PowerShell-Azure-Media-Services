@@ -7,12 +7,27 @@
     The path to the JSON file that contains the serialized Access Control Services (ACS) token. If
     you do not already have an ACS token, then you can create one by using the 'NewToken' parameter set.
 
+    If you are creating a new token, using the 'NewToken' parameter set, then this parameter will be used
+
     .Parameter FromToken
     Loads an ACS token from a file, instead of creating a new one. Only use this parameter along with the
     TokenPath parameter, if you have already created an ACS token and exported it to a file. By default,
     this command will export a new ACS token to a file, unless you suppress it with the -NoExport parameter.
 
-    .Parameter
+    .Parameter AccountName
+    The name of the Azure Media Services account that you will retrieve a context for.
+
+    .Parameter Key
+    The primary or secondary Azure Media Services account key that correlates to the account specified in
+    the -AccountName parameter.
+
+    .Parameter NoExport
+    Prevents the credentials (ACS token) for the CloudMediaContext from being exported to a file.
+
+    .Example
+    Get a new CloudMediaContext using an Azure Media Services account name and key.
+
+    $Context = Get-AzureMediaContext -AccountName JoesMedia -Key <keyhere>;
     #>
     [CmdletBinding()]
     param (
