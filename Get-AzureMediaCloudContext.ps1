@@ -1,0 +1,53 @@
+﻿function Get-AzureMediaContext {
+    <#
+    .Synopsis
+    Creates a new Azure Media Context, with the given ACS token or account details.
+
+    #>
+    [CmdletBinding()]
+    param (
+        [Parameter(ParameterSetName = 'FromToken', Mandatory = $false)]
+        [Parameter(ParameterSetName = 'NewToken', Mandatory = $false)]
+        [ValidateScript({
+            if (ConvertFrom-Json -InputObject (Get-Content -Path $PSItem)) { $true; }
+            })]
+        [string] $TokenPath = '{0}\MediaServicesToken.json' -f $PSScriptRoot
+       ,[Parameter(ParameterSetName = 'NewToken', Mandatory = $true)]
+        [ValidateScript({
+            if (Get-AzureMediaServicesAccount -Name $PSItem) { $true; }
+            })]
+        [string] $AccountName
+       ,[Parameter(ParameterSetName = 'NewToken', Mandatory = $true)]
+        [string] $Key
+       ,[Parameter(ParameterSetName = 'NewToken', Mandatory = $false)]
+        [switch] $NoExport
+       ,[Parameter(ParameterSetName = 'FromToken', Mandatory = $true)]
+        [switch] $FromToken
+    )
+
+    if ($PSCmdlet.ParameterSetName -eq 'FromToken') {
+        Write-Verbose -Message ('Attempting to read ACS token from path: {0}' -f $TokenPath);
+        $DeserializedACSToken = ConvertFrom-Json -InputObject (Get-Content -Path $TokenPath -Raw -ErrorAction Stop) -ErrorAction Stop;
+        # Create the MediaServicesCredentials object
+        $MediaServicesCredentials = New-Object -TypeName Microsoft.WindowsAzure.MediaServices.Client.MediaServicesCredentials -ArgumentList $DeserializedACSToken.ClientId, $DeserializedACSToken.ClientSecret, $DeserializedACSToken.Scope, $DeserializedACSToken.AcsBaseAddress -ErrorAction Stop;
+        # Create the CloudMediaContext object
+        $CloudMediaContext = New-Object -TypeName Microsoft.WindowsAzure.MediaServices.Client.CloudMediaContext -ArgumentList $MediaServicesCredentials -ErrorAction Stop;
+        Write-Verbose -Message 'Successfully created CloudMediaContext from deserialized ACS token.';
+
+        return $CloudMediaContext;
+    }
+
+    if ($PSCmdlet.ParameterSetName -eq 'NewToken') {
+        Write-Verbose -Message 'Creating new Azure Media Services ACS token.'
+        # Create the CloudMediaContext object
+        $CloudMediaContext = New-Object -TypeName Microsoft.WindowsAzure.MediaServices.Client.CloudMediaContext -ArgumentList $AccountName, $Key;
+        # Export the ACS token to a local file, to avoid unnecessary Active Directory requests
+        
+        if (!$NoExport) {
+            Write-Verbose -Message ('{0}: Saving token to path: {1}' -f $CmdletName, $TokenPath);
+            $CloudMediaContext.Credentials | ConvertTo-Json | Out-File -FilePath $TokenPath;
+        }
+
+        return $CloudMediaContext;
+    }
+}

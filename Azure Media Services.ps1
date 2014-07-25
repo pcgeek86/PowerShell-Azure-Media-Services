@@ -97,8 +97,6 @@ catch {
     $CloudMediaContext = New-Object -TypeName Microsoft.WindowsAzure.MediaServices.Client.CloudMediaContext -ArgumentList $MediaAccount.Name, $MediaAccount.PrimaryKey;
     # Export the ACS token to a local file, to avoid unnecessary Active Directory requests
     $CloudMediaContext.Credentials | ConvertTo-Json | Out-File -FilePath $TokenPath;
-    # Import the ACS token from the local file, to avoid requesting a new token
-
 }
 #endregion
 
