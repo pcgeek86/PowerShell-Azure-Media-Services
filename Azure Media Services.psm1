@@ -1,15 +1,15 @@
-. $PSScriptRoot\Get-AzureMediaContext.ps1;
-. $PSScriptRoot\Load-AzureMediaDependencies.ps1;
-. $PSScriptRoot\New-AzureMediaAsset.ps1;
-. $PSScriptRoot\Get-AzureMediaProcessor.ps1;
-. $PSScriptRoot\Add-AzureAssetFile;
+. $PSScriptRoot\Get-AzureMediaServicesContext.ps1;
+. $PSScriptRoot\Load-AzureMediaServicesDependencies.ps1;
+. $PSScriptRoot\New-AzureMediaServicesAsset.ps1;
+. $PSScriptRoot\Get-AzureMediaServicesProcessor.ps1;
+. $PSScriptRoot\Add-AzureMediaServicesAssetFile;
 . $PSScriptRoot\Get-AzureMediaServicesProcessor;
 
 $PublicFunction = @(
-    'Get-AzureMediaContext';
-    'New-AzureMediaAsset';
-    'Get-AzureMediaProcessor';
-    'Add-AzureAssetFile';
+    'Get-AzureMediaServicesContext';
+    'New-AzureMediaServicesAsset';
+    'Get-AzureMediaServicesProcessor';
+    'Add-AzureMediaServicesAssetFile';
     'Get-AzureMediaServicesProcessor';
     );
 Export-ModuleMember -Function $PublicFunction;

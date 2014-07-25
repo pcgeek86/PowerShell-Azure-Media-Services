@@ -1,4 +1,4 @@
-﻿function New-AzureMediaAsset {
+﻿function New-AzureMediaServicesAsset {
     <#
     .Synopsis 
     Adds a new Asset to the specific

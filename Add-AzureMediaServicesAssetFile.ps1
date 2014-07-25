@@ -1,4 +1,4 @@
-﻿function Add-AzureAssetFile {
+﻿function Add-AzureMediaServicesAssetFile {
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true)]

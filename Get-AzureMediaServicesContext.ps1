@@ -1,4 +1,4 @@
-﻿function Get-AzureMediaContext {
+﻿function Get-AzureMediaServicesContext {
     <#
     .Synopsis
     Creates a new Azure Media Context, with the given ACS token or account details.
