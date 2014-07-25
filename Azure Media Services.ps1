@@ -25,12 +25,14 @@ $MediaAccount = @{
     Location = $Location;
     StorageAccountName = $StorageAccount.StorageAccountName;
     # TODO: Write function to retrieve the Media Services Account key from the Azure Service Management API
-    PrimaryKey = 'D0tiT5hcPTSYgyDkoxKWbcSvmdX/YOC1s3cB4yUopuw=';
+    PrimaryKey = '';
     };
 #endregion
 
 #region Create Azure resources
 Select-AzureSubscription -SubscriptionName $Subscription;
+$MediaAccount.PrimaryKey = New-AzureMediaServicesKey -Name $MediaAccount.Name -KeyType Primary;
+<#
 # Create Affinity Group
 if (!(Get-AzureAffinityGroup -Name $AffinityGroup.Name)) {
     New-AzureAffinityGroup @AffinityGroup -Verbose; };
@@ -40,6 +42,7 @@ if (!(Get-AzureStorageAccount -StorageAccountName $StorageAccount.StorageAccount
 # Create Media Services Account
 if (!(Get-AzureMediaServicesAccount -Name $MediaAccount.Name)) { 
     New-AzureMediaServicesAccount @MediaAccount -Verbose; }
+#>
 #endregion Create Azure resources
 
 #region Dependencies
