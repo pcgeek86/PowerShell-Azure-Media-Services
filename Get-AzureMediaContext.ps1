@@ -50,6 +50,9 @@
         [switch] $FromToken
     )
 
+    # Get the command's name, to use for logging
+    $CmdletName = $PSCmdlet.MyInvocation.MyCommand.Name;
+
     if ($PSCmdlet.ParameterSetName -eq 'FromToken') {
         Write-Verbose -Message ('Attempting to read ACS token from path: {0}' -f $TokenPath);
         $DeserializedACSToken = ConvertFrom-Json -InputObject (Get-Content -Path $TokenPath -Raw -ErrorAction Stop) -ErrorAction Stop;
@@ -75,4 +78,8 @@
 
         return $CloudMediaContext;
     }
+}
+
+if ($MyInvocation.MyCommand.Module) {
+    Export-ModuleMember -Function Get-AzureMediaContext;
 }
