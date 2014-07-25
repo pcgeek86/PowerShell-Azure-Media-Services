@@ -31,7 +31,7 @@ $MediaAccount = @{
 
 #region Create Azure resources
 Select-AzureSubscription -SubscriptionName $Subscription;
-$MediaAccount.PrimaryKey = New-AzureMediaServicesKey -Name $MediaAccount.Name -KeyType Primary;
+$MediaAccount.PrimaryKey = New-AzureMediaServicesKey -Name $MediaAccount.Name -KeyType Primary -Force;
 <#
 # Create Affinity Group
 if (!(Get-AzureAffinityGroup -Name $AffinityGroup.Name)) {

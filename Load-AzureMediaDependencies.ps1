@@ -3,7 +3,9 @@
     param ()
 
     $NuGet = '{0}\nuget.exe' -f $PSScriptRoot;
-    Invoke-WebRequest -Uri http://nuget.org/nuget.exe -OutFile $NuGet;
+    if (!(Test-Path -Path $NuGet)) {
+        Invoke-WebRequest -Uri http://nuget.org/nuget.exe -OutFile $NuGet;
+    }
 
     # Install dependencies from NuGet, to work with Azure Media Services
     #Set-Location -Path $PSScriptRoot;
