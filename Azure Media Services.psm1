@@ -3,7 +3,6 @@
 . $PSScriptRoot\New-AzureMediaServicesAsset.ps1;
 . $PSScriptRoot\Get-AzureMediaServicesProcessor.ps1;
 . $PSScriptRoot\Add-AzureMediaServicesAssetFile;
-. $PSScriptRoot\Get-AzureMediaServicesProcessor;
 
 $PublicFunction = @(
     'Get-AzureMediaServicesContext';
@@ -14,3 +13,4 @@ $PublicFunction = @(
 Export-ModuleMember -Function $PublicFunction;
 
 Load-AzureMediaServicesDependencies;
+
