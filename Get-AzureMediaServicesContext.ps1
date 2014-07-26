@@ -30,11 +30,12 @@
     $Context = Get-AzureMediaContext -AccountName JoesMedia -Key <keyhere>;
     #>
     [CmdletBinding()]
+    [OutputType([Microsoft.WindowsAzure.MediaServices.Client.CloudMediaContext])]
     param (
         [Parameter(ParameterSetName = 'FromToken', Mandatory = $false)]
         [Parameter(ParameterSetName = 'NewToken', Mandatory = $false)]
         [ValidateScript({
-            if (ConvertFrom-Json -InputObject (Get-Content -Path $PSItem)) { $true; }
+            if (ConvertFrom-Json -InputObject (Get-Content -Raw -Path $PSItem)) { $true; }
             })]
         [string] $TokenPath = '{0}\MediaServicesToken.json' -f $PSScriptRoot
        ,[Parameter(ParameterSetName = 'NewToken', Mandatory = $true)]
@@ -55,11 +56,11 @@
 
     if ($PSCmdlet.ParameterSetName -eq 'FromToken') {
         Write-Verbose -Message ('Attempting to read ACS token from path: {0}' -f $TokenPath);
-        $DeserializedACSToken = ConvertFrom-Json -InputObject (Get-Content -Path $TokenPath -Raw -ErrorAction Stop) -ErrorAction Stop;
+        $DeserializedACSToken = ConvertFrom-Json -InputObject (Get-Content -Path $TokenPath -Raw -ErrorAction Stop);
         # Create the MediaServicesCredentials object
-        $MediaServicesCredentials = New-Object -TypeName Microsoft.WindowsAzure.MediaServices.Client.MediaServicesCredentials -ArgumentList $DeserializedACSToken.ClientId, $DeserializedACSToken.ClientSecret, $DeserializedACSToken.Scope, $DeserializedACSToken.AcsBaseAddress -ErrorAction Stop;
+        $MediaServicesCredentials = New-Object -TypeName Microsoft.WindowsAzure.MediaServices.Client.MediaServicesCredentials -ArgumentList $DeserializedACSToken.ClientId, $DeserializedACSToken.ClientSecret, $DeserializedACSToken.Scope, $DeserializedACSToken.AcsBaseAddress;
         # Create the CloudMediaContext object
-        $CloudMediaContext = New-Object -TypeName Microsoft.WindowsAzure.MediaServices.Client.CloudMediaContext -ArgumentList $MediaServicesCredentials -ErrorAction Stop;
+        $CloudMediaContext = New-Object -TypeName Microsoft.WindowsAzure.MediaServices.Client.CloudMediaContext -ArgumentList $MediaServicesCredentials;
         Write-Verbose -Message 'Successfully created CloudMediaContext from deserialized ACS token.';
 
         return $CloudMediaContext;
