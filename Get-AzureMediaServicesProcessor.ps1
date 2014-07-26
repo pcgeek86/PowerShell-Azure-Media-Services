@@ -15,6 +15,7 @@
     retrieve a context using the Get-AzureMediaServicesContext command.
     #>
     [CmdletBinding()]
+    [OutputType([Microsoft.WindowsAzure.MediaServices.Client.IMediaProcessor])]
     param (
         [Parameter(Mandatory = $true, ParameterSetName = 'ByName')]
         [string] $Name
