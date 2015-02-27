@@ -1,8 +1,16 @@
 ﻿function Test-GetAzureMediaServicesContext {
-    $VerbosePreference = 'continue';
+    [CmdletBinding()]
+    param ()
 
+    $VerbosePreference = 'continue';
+    $ErrorActionPreference = 'stop';
+
+    $SubscriptionName = 'Visual Studio Ultimate with MSDN';
     $ModuleName = 'Azure Media Services';
     $AccountName = 'tbsmedia';
+
+    # Select the appropriate Azure subscription
+    Select-AzureSubscription -SubscriptionName $SubscriptionName -ErrorAction Stop;
 
     # Remove and reload module
     Remove-Module -Name $ModuleName -ErrorAction SilentlyContinue;

@@ -1,4 +1,7 @@
 ﻿function Test-GetAzureMediaServicesProcessor {
+    [CmdletBinding()]
+    param ()
+
     $VerbosePreference = 'continue';
 
     $ModuleName = 'Azure Media Services';

@@ -4,6 +4,7 @@
           $env:PSModulePath environment variable.
 #>
 Clear-Host;
-$ModuleName = Split-Path -Path $PSScriptRoot -Leaf;
-Remove-Module -Name $ModuleName -ErrorAction SilentlyContinue;
-Import-Module -Name ('{0}\{1}.psd1' -f $PSScriptRoot, $ModuleName) -Verbose;
+
+$Manifest = Get-ChildItem -Path $PSScriptRoot -Filter *.psd1;
+
+Import-Module -Name $Manifest.FullName;
